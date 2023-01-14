@@ -24,6 +24,7 @@ while True:
                 now = time.time()
                 lastSeenInMinute = (now - node["lastSeen"]/1000)/60                
                 msg += "Node: " + node["peerId"] + "\nAvailability: " + str(node["availability"]*100) + "%\nAvailability 24h: " + str(node["availability24h"]*100) + "%\nLatency:" + str(node["latencyAverage"]) + "ms\nLastSeen:" + str(lastSeenInMinute) + "mins\n\n"
+                print("msg is: \n" + msg)
         print(change)
         if (not ON_CHANGE) or (ON_CHANGE and change):
             url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={TELEGRAM_ID}&parse_mode=HTML&text=<code>{msg}</code>"
