@@ -23,7 +23,7 @@ while True:
                     print(stats)    
                 now = time.time()
                 lastSeenInMinute = (now - node["lastSeen"]/1000)/60                
-                msg += "Node: " + node["peerId"] + "\nAvailability: " + str(node["availability"]*100) + "%\nAvailability 24h: " + str(node["availability24h"]*100) + "%\nLatency:" + str(node["latencyAverage"]) + "ms\nLastSeen:" + str(lastSeenInMinute) + "mins\n\n"
+                msg += "Node: " + node["peerId"] + "\nAvailability: " + str(node["availability"]*100) + "%\nAvailability 24h: " + str(node["availability24h"]*100) + "%\nLatency:" + str(format(node["latencyAverage"], '.2f')) + "ms\nLastSeen:" + str(format(lastSeenInMinute, '.2f')) + "min\n\n"
                 print("msg is: \n" + msg)
         print(change)
         if (not ON_CHANGE) or (ON_CHANGE and change):
