@@ -9,7 +9,8 @@ This bot checks the availability of the node (or multiple nodes) every hour and 
 
 1. Clone the repository : <br> `git clone https://github.com/Ziltar/HOPR_Node_Notification.git && cd HOPR_Node_Notification` 
 2. Install requirements:  <br> `pip install requirements.txt `
-3. Edit the *settings.py* File: <br>
+3. Rename `setting.py_sample` to `setting.py`
+4. Edit the *settings.py* File: <br>
 <b>NODES:</b> HOPR Node Address(es)<br>
 *Example:*<br> `NODES = ["16Uiu2HAmH3RhgTDN6cwysRnMtMf4jfzsvKuyuKPu5iDRZUZiVsqx", "16Uiu2HAkuTsuFSak6UJeF2w3KV2uzoNSpuGNFKC2vyLt63BpwuDC"]`<br>
 <b>TELEGRAM_TOKEN</b><br>
@@ -25,4 +26,10 @@ If True, the bot sends a notification only when the availability changes (24 hou
 ## Usage
 Run main.py: `python3 main.py` <br><br>
 
+You can also run it in a screen session.
 
+```
+screen -r hoprd-monitor
+python3 main.py
+```
+CTRL + A + D to detach the screen
