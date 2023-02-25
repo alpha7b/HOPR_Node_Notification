@@ -26,7 +26,13 @@ while True:
                     
                 now = time.time()
                 lastSeenInMinute = (now - node["lastSeen"]/1000)/60                
-                msg += "Node: " + node["peerId"] + "\nAvailability: " + str(format(node["availability"]*100, '.2f')) + "%\nAvailability 24h: " + str(format(node["availability24h"]*100, '.2f')) + "%\nLatency:" + str(format(node["latencyAverage"], '.2f')) + "ms\nLastSeen:" + str(format(lastSeenInMinute, '.2f')) + "min\nnextEstRewards:" + str(format(node["nextEstRewards"], '.2f')) + " HOPR\n\n"
+                msg += "Node: " + node["peerId"] + "\n" + \
+                "Availability: " + str(format(node["availability"]*100, '.2f')) + "%\n" + \
+                "Availability 24h: " + str(format(node["availability24h"]*100, '.2f')) + "%\n" + \
+                "Latency:" + str(format(node["latencyAverage"], '.2f')) + "ms\n" + \
+                "LastSeen:" + str(format(lastSeenInMinute, '.2f')) + "min\n" + \
+                "nextEstRewards:" + str(format(node["nextEstRewards"], '.2f')) + " HOPR\n\n"
+
                 print("msg is: \n" + msg + "\n\n")
         print("Is status changed? " + str(change))
 
