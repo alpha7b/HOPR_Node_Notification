@@ -21,6 +21,7 @@ while True:
                         change = True
                     print("node['availability24h'] is: " + str(node["availability24h"]) + "\n\n")
                     print("node['nextEstRewards'] is: " + str(node["nextEstRewards"]) + "\n\n")
+                    print("node['count'] is: " + str(node["count"]) + "\n\n")
                     stats[node["peerId"]] =  node["availability24h"]
                     print("current stats is: " + str(stats) + "\n\n")
                     
@@ -31,6 +32,7 @@ while True:
                 "Availability 24h: " + str(format(node["availability24h"]*100, '.2f')) + "%\n" + \
                 "Latency:" + str(format(node["latencyAverage"], '.2f')) + "ms\n" + \
                 "LastSeen:" + str(format(lastSeenInMinute, '.2f')) + "min\n" + \
+                "Ping:" + str(node["count"]) + "\n" + \
                 "nextEstRewards:" + str(format(node["nextEstRewards"], '.2f')) + " HOPR\n\n"
 
                 print("msg is: \n" + msg + "\n\n")
