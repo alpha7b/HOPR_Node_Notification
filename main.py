@@ -12,6 +12,7 @@ while True:
         nodes_data = response.json()['nodes']
         msg = ""
         change = False
+        totalNextEstRewards = 0
         for node in nodes_data:
             if node["peerId"] in NODES:
                 if ON_CHANGE:
@@ -25,7 +26,8 @@ while True:
                     print("node['count'] is: " + str(node["count"]) + "\n\n")
                     stats[node["peerId"]] =  node["availability24h"]
                     print("current stats is: " + str(stats) + "\n\n")
-                    
+
+                totalNextEstRewards += node["nextEstRewards"]
                 now = time.time()
                 lastSeenInMinute = (now - node["lastSeen"]/1000)/60                
                 msg += "Node: " + node["peerId"] + "\n" + \
@@ -37,26 +39,34 @@ while True:
                 "nextEstRewards:" + str(format(node["nextEstRewards"], '.2f')) + " HOPR\n\n"
 
                 print("msg is: \n" + msg + "\n\n")
+        print("Total nextEstRewards: " + str(totalNextEstRewards))
         print("Is status changed? " + str(change))
-
-        total_reward = 0
-        for address in STAKE_WALLETS:
-            response = requests.request("GET", REWARD_URL+address)
-            reward_data = response.json()
-            reward = (reward_data[0][0]['rewards'])
-            total_reward += reward
-        total_reward = format(total_reward, '.2f')
-        msg+= "\n💸Totoal Reward:" + str(total_reward) + " HOPR\n\n"
-        print("msg with reward is: \n" + msg)
 
         if (not ON_CHANGE) or (ON_CHANGE and change):
             url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={TELEGRAM_ID}&parse_mode=HTML&text=<code>{msg}</code>"
             requests.get(url)
-        elif (ON_REWARD_CHANGE and (reward  != total_reward)):
-            msg = "💸Reward:" + str(total_reward) + " HOPR"
+            msg = "💸Total Reward: " + str(totalNextEstRewards) + " HOPR"
             url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={TELEGRAM_ID}&parse_mode=HTML&text=<code>{msg}</code>"
             requests.get(url)
-            reward = total_reward
+
+        # total_reward = 0
+        # for address in STAKE_WALLETS:
+        #     response = requests.request("GET", REWARD_URL+address)
+        #     reward_data = response.json()
+        #     reward = (reward_data[0][0]['rewards'])
+        #     total_reward += reward
+        # total_reward = format(total_reward, '.2f')
+        # msg+= "\n💸Totoal Reward:" + str(total_reward) + " HOPR\n\n"
+        # print("msg with reward is: \n" + msg)
+
+        # if (not ON_CHANGE) or (ON_CHANGE and change):
+        #     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={TELEGRAM_ID}&parse_mode=HTML&text=<code>{msg}</code>"
+        #     requests.get(url)
+        # elif (ON_REWARD_CHANGE and (reward  != total_reward)):
+        #     msg = "💸Reward:" + str(total_reward) + " HOPR"
+        #     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={TELEGRAM_ID}&parse_mode=HTML&text=<code>{msg}</code>"
+        #     requests.get(url)
+        #     reward = total_reward
 
     except Exception as e:
         print(str(e))
