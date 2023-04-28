@@ -34,19 +34,18 @@ while True:
                 lastSeenInMinute = (now - found_node["lastSeen"] / 1000) / 60
 
                 msg += "Node: " + node_name + "\n" + \
-                       "HOPR Address: " + hopr_address + "\n" + \
-                       "Availability: " + str(format(found_node["availability"] * 100, '.2f')) + "%\n" + \
                        "Availability 24h: " + str(format(found_node["availability24h"] * 100, '.2f')) + "%\n" + \
-                       "Latency:" + str(format(found_node["latencyAverage"], '.2f')) + "ms\n" + \
                        "Last Seen:" + str(format(lastSeenInMinute, '.2f')) + "min\n" + \
+                       "HOPR Address: " + hopr_address + "\n" + \
                        "Ping:" + str(found_node["count"]) + "\n" + \
+                       "Availability: " + str(format(found_node["availability"] * 100, '.2f')) + "%\n" + \
                        "Next Estimated Rewards:" + str(format(found_node["nextEstRewards"], '.2f')) + " HOPR\n\n"
-
+                    #    "Latency:" + str(format(found_node["latencyAverage"], '.2f')) + "ms\n" + \
         print("Total Next Estimated Rewards: " + str(totalNextEstRewards))
         print("Is status changed? " + str(change))
 
         if (not ON_CHANGE) or (ON_CHANGE and change):
-            msg += "💸 Total rewards: " + str(totalNextEstRewards) + " HOPR"
+            msg += "================ 💸 Total rewards: " + str(totalNextEstRewards) + " HOPR ================"
             url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={TELEGRAM_ID}&parse_mode=HTML&text=<code>{msg}</code>"
             requests.get(url)
 
